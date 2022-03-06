@@ -39,11 +39,24 @@
 
     Chart.register(...registerables);
     let data = {
-        labels: ["team1", "team2", "team3", "team4", "team5", "team6"],
+        labels: [
+            "team1",
+            "team2",
+            "team3",
+            "team4",
+            "team5",
+            "team6",
+            "team7",
+            "team8",
+            "team9",
+            "team10",
+            "team12",
+            "team13",
+        ],
         datasets: [
             {
                 //label: "",
-                data: [200, 70, 20, 15, 12, 2],
+                data: [200, 70, 50, 40, 32, 32, 22, 20, 17, 15, 11, 10, 8, 2],
                 backgroundColor: ClassicAreaRedGreen21,
                 //borderColor: Classic20,
                 //borderWidth: 1,
@@ -68,9 +81,21 @@
     let chart = null;
     let chartRef;
     onMount(() => {
-        chart = new Chart(chartRef, config);
+        drowchart()
     });
     afterUpdate(() => {
+    });
+    onDestroy(() => {
+        if (chart) chart.destroy();
+        chart = null;
+    });
+    function drowchart(){
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches == true) {
+            Chart.defaults.color = "white";
+        } else {
+            Chart.defaults.color = "#666";
+        }
+        chart = new Chart(chartRef, config);
         if (!chart) return;
         if (window.matchMedia("(prefers-color-scheme: dark)").matches == true) {
             //dark mode
@@ -78,21 +103,15 @@
             config.options.scales.y.grid.borderColor = "rgba(255,255,255,0.7)";
             config.options.scales.x.grid.color = "rgba(255,255,255,0.2)";
             config.options.scales.y.grid.color = "rgba(255,255,255,0.2)";
-            Chart.defaults.color = "white";
         } else {
             config.options.scales.x.grid.borderColor = "#666";
             config.options.scales.y.grid.borderColor = "#666";
             config.options.scales.x.grid.color = "rgba(0,0,0,0.1)";
             config.options.scales.y.grid.color = "rgba(0,0,0,0.1)";
-            Chart.defaults.color = "#666";
         }
         chart.data = data;
         chart.update();
-    });
-    onDestroy(() => {
-        if (chart) chart.destroy();
-        chart = null;
-    });
+    }
 </script>
 
 <Card class="mb-3">

@@ -2,6 +2,7 @@
     import { Alert } from "sveltestrap";
     import TimeSeries from "./TimeSeries.svelte";
     import Ranking from "./Ranking.svelte";
+    import Benchmarker from "./Benchmarker.svelte";
     import {
         Card,
         CardBody,
@@ -25,11 +26,12 @@
 </script>
 
 <main>
-    <h1>Hello {name}!</h1>
-    <p>
+    <h1 class="title_hello">Hello {name}!</h1>
+    <p class="example_message">
         Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
         how to build Svelte apps.
     </p>
+    <Benchmarker />
     <Ranking />
     <TimeSeries />
 
@@ -46,19 +48,22 @@
 </main>
 
 <style>
-    main {
+    .title_hello {
         text-align: center;
         padding: 1em;
-        max-width: 240px;
         margin: 0 auto;
-    }
 
-    h1 {
         color: #ff3e00;
         text-transform: uppercase;
         font-size: 4em;
         font-weight: 100;
     }
+    .example_message {
+        text-align: center;
+        padding: 1em;
+        margin: 0 auto;
+    }
+
 
     @media (min-width: 640px) {
         main {

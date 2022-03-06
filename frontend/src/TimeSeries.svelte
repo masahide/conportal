@@ -39,8 +39,12 @@
                 data: [1, 2, 16, 3, 2, 13, 19, 0],
             },
             {
+                label: "team3",
+                data: [0, 0, 0, 0, 1, 2, 3, 4, 10],
+            },
+            {
                 label: "team4",
-                data: [8, 3, 0, 0, 2, 4, 1, 3, 5],
+                data: [8, 3, 10, 13, 12, 14, 11, 13, 15],
             },
         ],
     };
@@ -58,9 +62,21 @@
     let chart = null;
     let chartRef;
     onMount(() => {
-        chart = new Chart(chartRef, config);
+        drowchart()
     });
     afterUpdate(() => {
+    });
+    onDestroy(() => {
+        if (chart) chart.destroy();
+        chart = null;
+    });
+    function drowchart(){
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches == true) {
+            Chart.defaults.color = "white";
+        } else {
+            Chart.defaults.color = "#666";
+        }
+        chart = new Chart(chartRef, config);
         if (!chart) return;
         if (window.matchMedia("(prefers-color-scheme: dark)").matches == true) {
             //dark mode
@@ -70,21 +86,15 @@
             config.options.scales.y.grid.borderColor = "rgba(255,255,255,0.7)";
             config.options.scales.x.grid.color = "rgba(255,255,255,0.2)";
             config.options.scales.y.grid.color = "rgba(255,255,255,0.2)";
-            Chart.defaults.color = "white";
         } else {
             config.options.scales.x.grid.borderColor = "#666";
             config.options.scales.y.grid.borderColor = "#666";
             config.options.scales.x.grid.color = "rgba(0,0,0,0.1)";
             config.options.scales.y.grid.color = "rgba(0,0,0,0.1)";
-            Chart.defaults.color = "#666";
         }
         chart.data = data;
         chart.update();
-    });
-    onDestroy(() => {
-        if (chart) chart.destroy();
-        chart = null;
-    });
+    }
 </script>
 
 <Card class="mb-3">
